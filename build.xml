@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="DDRFTPD2" default="dist" basedir=".">
+    <description>
+        simple example build file
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="resources" location="resources"/>
+
+  <path id="classpath">
+    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+  </path>
+
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init" description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}" classpathref="classpath"/>
+  </target>
+
+  <target name="dist" depends="compile" description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}/DDRFTPD2-${DSTAMP}"/>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar destfile="${dist}/DDRFTPD2-${DSTAMP}/DDRFTPD.jar" filesetmanifest="mergewithoutmain" basedir="${build}">
+      <manifest>
+        <attribute name="Main-Class" value="ddrftpserver.Server"/>
+        <attribute name="Class-Path" value="."/>
+      </manifest>
+      <fileset dir="${build}"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/aopalliance-1.0.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/commons-lang3-3.4.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/guava-18.0.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/ini4j-0.5.5-SNAPSHOT.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/log4j-1.2.14.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/lombok.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/mina-core-2.0.4.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/pircbotx-unified.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/slf4j-simple-1.7.12.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/spring-beans-2.5.5.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/spring-context-2.5.5.jar"/>
+      <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/spring-core-2.5.5.jar"/>
+      <fileset dir="${resources}" />
+    </jar>
+    <copy todir="${dist}/DDRFTPD2-${DSTAMP}">
+      <fileset dir="default_files"/>
+    </copy>
+
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

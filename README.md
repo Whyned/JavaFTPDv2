@@ -1,2 +1,20 @@
-# JavaFTPDv2
-Another java ftpd based on apache ftp server with features like sfv, quota and an irc bot
+DDRFTPDv2
+---------
+
+Permissions:
+------------
+
+- free
+- reload
+- exec
+- rescan
+
+
+
+Build:
+------
+
+- Maven2
+- OpenJDK7
+
+Run build_maven.sh
