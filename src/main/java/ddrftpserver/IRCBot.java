@@ -8,6 +8,7 @@ import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.PircBotX.State;
 import org.pircbotx.UtilSSLSocketFactory;
+import org.pircbotx.delay.StaticDelay;
 import org.apache.ftpserver.usermanager.SaltedPasswordEncryptor;
 
 public class IRCBot{
@@ -50,9 +51,9 @@ public class IRCBot{
                 .addAutoJoinChannel("#DDRiderZ.Str0s sheeeesh")
                 .addListener(new IRCBotListenerAdapter())
                 .setAutoReconnect(true)
-                .setAutoReconnectDelay(10000)
+                .setAutoReconnectDelay(new StaticDelay(10000))
                 .setAutoReconnectAttempts(999999999)
-                .setMessageDelay(2)//Add our listener that will be called on Events
+                .setMessageDelay(new StaticDelay(2))//Add our listener that will be called on Events
                 
                 .buildConfiguration();
 
