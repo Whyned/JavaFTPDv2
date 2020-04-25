@@ -50,14 +50,19 @@ public class FTPLet extends DefaultFtplet{
 		ftpletContext = paramftpletContext;
 
 		// Start irc
-		if(Server.ircbot != null){
-			Server.ircbot.start();
-		}
+		if(Server.ircbot.enabled == true){
+      try {
+        Server.ircbot.start();
+      } catch (Exception e) {
+        System.out.println("Error on starting IRCBOT :/");
+        e.printStackTrace();
+      }
     }
+  }
 
 	@Override
 	public void destroy(){
-		if(Server.ircbot != null && Server.ircbot.status() == PircBotX.State.CONNECTED){
+		if(Server.ircbot.enabled == true && Server.ircbot.status() == PircBotX.State.CONNECTED){
 			Server.ircbot.announce("Arrgh!, See Ya Chum!");
 			try {
 				Server.ircbot.stop();

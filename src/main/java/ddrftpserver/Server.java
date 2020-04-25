@@ -167,20 +167,21 @@ public class Server {
 
 
 		// IRC
-		if(ini_has("IRC", "prefix")){
-			IRCBot.prefix = inifile.get("IRC", "prefix");
+		if(ini_has("IRC", "enable") && inifile.get("IRC", "enable", boolean.class) == true){
+      IRCBot.enabled = true;
+      if(ini_has("IRC", "prefix")){
+        IRCBot.prefix = inifile.get("IRC", "prefix");
+      }
+      if(ini_has("IRC", "adminpw")){
+        IRCBot.adminPassword = inifile.get("IRC", "adminpw");
+      }
+      if(ini_has("IRC", "passwordencryption")){
+        String encryptstrirc = inifile.get("IRC", "passwordencryption");
+        Server.ircbot.passwordEncryptorIRC = config_parsePasswordEncryptionString(encryptstrirc);
+      }
 		}
-		if(ini_has("IRC", "adminpw")){
-			IRCBot.adminPassword = inifile.get("IRC", "adminpw");
-		}
-		if(ini_has("IRC", "passwordencryption")){
-			String encryptstrirc = inifile.get("IRC", "passwordencryption");
-			Server.ircbot.passwordEncryptorIRC = config_parsePasswordEncryptionString(encryptstrirc);
+  }
 
-		}
-
-
-	}
 	public static PasswordEncryptor config_parsePasswordEncryptionString(String encryptstr){
 		PasswordEncryptor passwordEncryptor;
 		switch(encryptstr){

@@ -1,6 +1,6 @@
 #!/bin/bash
 java="java"
-jar="bash"
+jar="DDRFTPD.jar"
 parameter="-Xmx128m"
 execa=""
 
